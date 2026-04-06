@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: management-hub
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - app: external-secrets
+            namespace: external-secrets
+            wave: "0"
+          - app: cert-manager
+            namespace: cert-manager
+            wave: "1"
+          - app: external-dns
+            namespace: external-dns
+            wave: "2"
+          - app: cloudflared
+            namespace: cloudflared
+            wave: "3"
+          - app: traefik-config
+            namespace: kube-system
+            wave: "4"
+          - app: argocd-ingress
+            namespace: argocd
+            wave: "5"
+          - app: connect-ingress
+            namespace: 1password
+            wave: "5"
+          - app: whoami
+            namespace: whoami
+            wave: "5"
+  template:
+    metadata:
+      name: 'mgmt-{{app}}'
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{wave}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/nwlucas/olympus-gitops
+        targetRevision: main
+        path: 'clusters/management-hub/{{app}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true

@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: onepassword-connect
+  namespace: 1password
+  annotations:
+    external-dns.alpha.kubernetes.io/target: ing.mgmt.nwlnexus.net
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`connect.nwlnexus.net`)
+      kind: Rule
+      services:
+        - name: onepassword-connect
+          port: 8080
+  tls:
+    secretName: connect-tls
