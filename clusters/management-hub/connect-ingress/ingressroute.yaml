@@ -4,6 +4,7 @@ metadata:
   name: onepassword-connect
   namespace: 1password
   annotations:
+    external-dns.alpha.kubernetes.io/hostname: connect.nwlnexus.net
     external-dns.alpha.kubernetes.io/target: ing.mgmt.nwlnexus.net
 spec:
   entryPoints:
