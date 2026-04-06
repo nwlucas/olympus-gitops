@@ -14,3 +14,7 @@ sources:
   - ingress
   - traefik-proxy
 txtOwnerId: management-hub
+
+# k3s/OrbStack uses traefik.io/v1alpha1 (Traefik v3); disable legacy containo.us API
+extraArgs:
+  - --traefik-disable-legacy
