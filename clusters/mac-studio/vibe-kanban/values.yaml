@@ -1,0 +1,26 @@
+ingress:
+  enabled: false
+
+server:
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+    hosts:
+      - host: vibe.nwlnexus.net
+        paths:
+          - path: /
+            pathType: Prefix
+
+postgresql:
+  auth:
+    existingSecret: vibe-kanban-secrets
+    secretKeys:
+      adminPasswordKey: db-password
+
+relay:
+  enabled: false
+
+worker:
+  enabled: false
