@@ -12,7 +12,6 @@ policy: sync
 sources:
   - service
   - ingress
-  - crd
   - traefik-proxy
 txtOwnerId: management-hub
 txtPrefix: "mgmt-"
