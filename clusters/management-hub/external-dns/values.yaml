@@ -1,11 +1,16 @@
 provider:
   name: cloudflare
 env:
-  - name: CF_API_TOKEN
+  - name: CF_API_KEY
     valueFrom:
       secretKeyRef:
-        name: cloudflare-api-token
-        key: api-token
+        name: cloudflare-credentials
+        key: api-key
+  - name: CF_API_EMAIL
+    valueFrom:
+      secretKeyRef:
+        name: cloudflare-credentials
+        key: api-email
 domainFilters:
   - nwlnexus.net
 policy: sync
