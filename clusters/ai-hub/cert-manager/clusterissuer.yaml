@@ -11,6 +11,7 @@ spec:
     solvers:
       - dns01:
           cloudflare:
-            apiTokenSecretRef:
-              name: cloudflare-api-token
-              key: api-token
+            email: nigel.williamslucas@gmail.com
+            apiKeySecretRef:
+              name: cloudflare-credentials
+              key: api-key
