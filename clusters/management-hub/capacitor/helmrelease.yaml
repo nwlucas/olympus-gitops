@@ -11,9 +11,8 @@ spec:
     namespace: flux-system
   values:
     env:
-      AUTH: static
-    existingSecret:
-      name: capacitor-next
+      AUTH: noauth
+      IMPERSONATE_SA_RULES: "noauth=flux-system:capacitor-next-preset-clusteradmin"
     service:
       type: ClusterIP
       port: 80
