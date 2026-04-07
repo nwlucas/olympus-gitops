@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
-    - traefik-ext.nwlnexus.net
+    - traefik.ext.nwlnexus.net
