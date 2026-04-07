@@ -4,6 +4,7 @@ metadata:
   name: argocd
   namespace: argocd
   annotations:
+    kubernetes.io/ingress.class: traefik
     external-dns.alpha.kubernetes.io/hostname: argocd.nwlnexus.net
     external-dns.alpha.kubernetes.io/target: ing.mgmt.nwlnexus.net
 spec:

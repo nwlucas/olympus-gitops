@@ -22,6 +22,12 @@ spec:
           - app: traefik-config
             namespace: kube-system
             wave: "4"
+          - app: traefik-ext
+            namespace: traefik-ext
+            wave: "4"
+          - app: traefik-tnet
+            namespace: traefik-tnet
+            wave: "4"
           - app: argocd-ingress
             namespace: argocd
             wave: "5"

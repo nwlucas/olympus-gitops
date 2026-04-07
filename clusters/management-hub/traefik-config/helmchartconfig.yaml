@@ -5,6 +5,14 @@ metadata:
   namespace: kube-system
 spec:
   valuesContent: |-
+    ingressClass:
+      name: traefik
+      isDefaultClass: false
+    providers:
+      kubernetesCRD:
+        ingressClass: traefik
+      kubernetesIngress:
+        ingressClass: traefik
     ports:
       web:
         redirectTo:

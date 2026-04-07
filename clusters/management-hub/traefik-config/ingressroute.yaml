@@ -4,6 +4,7 @@ metadata:
   name: traefik-dashboard
   namespace: kube-system
   annotations:
+    kubernetes.io/ingress.class: traefik
     external-dns.alpha.kubernetes.io/hostname: traefik.nwlnexus.net
     external-dns.alpha.kubernetes.io/target: ing.mgmt.nwlnexus.net
 spec:
