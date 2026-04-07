@@ -6,3 +6,5 @@ resources:
   - helmrelease.yaml
   - certificate.yaml
   - ingressroute.yaml
+  - serviceaccount.yaml
+  - clusterrolebinding.yaml
