@@ -5,14 +5,14 @@ metadata:
   namespace: traefik-tnet
   annotations:
     kubernetes.io/ingress.class: traefik-tnet
-    external-dns.alpha.kubernetes.io/hostname: traefik.tnet.nwlnexus.net
+    external-dns.alpha.kubernetes.io/hostname: traefik-tnet.nwlnexus.net
     external-dns.alpha.kubernetes.io/target: ing.mgmt.nwlnexus.net
 spec:
   entryPoints:
     - web
     - websecure
   routes:
-    - match: Host(`traefik.tnet.nwlnexus.net`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    - match: Host(`traefik-tnet.nwlnexus.net`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       kind: Rule
       services:
         - name: api@internal
