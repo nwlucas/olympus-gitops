@@ -1,33 +1,20 @@
+# Vibe Kanban — values for ai-hub cluster
+# Chart: oci://ghcr.io/everythings-gonna-be-alright/charts/vibe-kanban v0.0.3
+
+# Use existing Secret managed by ESO (Option A)
+secrets:
+  existingSecret: vibe-kanban-secrets
+
+# Disable the chart's built-in Ingress — we use a Traefik IngressRoute instead
 ingress:
   enabled: false
 
-server:
-  ingress:
-    enabled: true
-    ingressClassName: traefik
-    annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      traefik.ingress.kubernetes.io/router.tls: "true"
-      external-dns.alpha.kubernetes.io/hostname: vibe.nwlnexus.net
-      external-dns.alpha.kubernetes.io/target: ing.ai.nwlnexus.net
-    hosts:
-      - host: vibe.nwlnexus.net
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - secretName: vibe-tls
-        hosts:
-          - vibe.nwlnexus.net
-
-postgresql:
-  auth:
-    existingSecret: vibe-kanban-secrets
-    secretKeys:
-      adminPasswordKey: db-password
-
 relay:
   enabled: false
+  ingress:
+    enabled: false
 
 worker:
   enabled: false
+  ingress:
+    enabled: false

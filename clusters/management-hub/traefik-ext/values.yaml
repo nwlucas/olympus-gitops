@@ -26,6 +26,13 @@ ports:
 
 api:
   dashboard: true
+  insecure: true  # serve dashboard on traefik entrypoint so main Traefik can proxy to it
+
+ports:
+  traefik:
+    port: 9000
+    expose:
+      default: true  # expose ClusterIP port so main k3s Traefik can route to it
 
 logs:
   general:
