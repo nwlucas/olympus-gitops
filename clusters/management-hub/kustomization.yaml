@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - flux-kustomizations/external-secrets.yaml
+  - flux-kustomizations/cert-manager.yaml
+  - flux-kustomizations/external-dns.yaml
+  - flux-kustomizations/cloudflared.yaml
+  - flux-kustomizations/traefik-config.yaml
+  - flux-kustomizations/traefik-ext.yaml
+  - flux-kustomizations/traefik-tnet.yaml
+  - flux-kustomizations/connect-ingress.yaml
+  - flux-kustomizations/whoami.yaml
+  - flux-kustomizations/qnap.yaml
