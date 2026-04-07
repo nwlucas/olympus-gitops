@@ -1,10 +1,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: capacitor-tls
-  namespace: flux-system
+  name: headlamp-tls
+  namespace: headlamp
 spec:
-  secretName: capacitor-tls
+  secretName: headlamp-tls
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
