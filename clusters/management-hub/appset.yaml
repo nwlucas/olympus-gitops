@@ -28,6 +28,9 @@ spec:
           - app: traefik-tnet
             namespace: traefik-tnet
             wave: "4"
+          - app: qnap
+            namespace: traefik-ext
+            wave: "5"
           - app: argocd-ingress
             namespace: argocd
             wave: "5"
