@@ -9,14 +9,18 @@ ports:
     port: 80
     expose:
       default: true
-    redirectTo:
-      port: websecure
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
   websecure:
     port: 443
     expose:
       default: true
-    tls:
-      enabled: true
+    http:
+      tls:
+        enabled: true
 
 api:
   dashboard: true

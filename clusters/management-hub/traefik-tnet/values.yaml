@@ -21,8 +21,9 @@ ports:
     nodePort: 9443
     expose:
       default: true
-    tls:
-      enabled: true
+    http:
+      tls:
+        enabled: true
 
 api:
   dashboard: false
