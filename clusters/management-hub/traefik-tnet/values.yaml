@@ -18,7 +18,7 @@ ports:
       default: false
   websecure:
     port: 443
-    nodePort: 30443
+    nodePort: 31443
     expose:
       default: true
     http:
