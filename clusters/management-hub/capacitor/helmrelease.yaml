@@ -11,8 +11,7 @@ spec:
     namespace: flux-system
   values:
     env:
-      AUTH: noauth
-      IMPERSONATE_SA_RULES: "noauth=flux-system:capacitor-next-preset-clusteradmin"
+      AUTH: static
     existingSecret:
       name: capacitor-next
     service:
