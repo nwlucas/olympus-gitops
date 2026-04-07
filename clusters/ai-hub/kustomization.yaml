@@ -6,4 +6,6 @@ resources:
   - flux-kustomizations/traefik.yaml
   - flux-kustomizations/external-dns.yaml
   - flux-kustomizations/cloudflared.yaml
-  - flux-kustomizations/vibe-kanban.yaml
+  # vibe-kanban: deferred — server image is private (ghcr.io/everythings-gonna-be-alright/vibe-kanban)
+  # Add imagePullSecrets or wait for public release before re-enabling
+  # - flux-kustomizations/vibe-kanban.yaml
