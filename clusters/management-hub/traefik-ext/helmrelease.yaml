@@ -29,20 +29,17 @@ spec:
 
     ports:
       web:
-        port: 80
         expose:
           default: true
       websecure:
-        port: 443
         expose:
           default: true
         http:
           tls:
             enabled: true
       traefik:
-        port: 9000
         expose:
-          default: true  # expose ClusterIP port so main k3s Traefik can route to it
+          default: true  # expose dashboard port (8080) so main k3s Traefik can proxy to it
 
     api:
       dashboard: true

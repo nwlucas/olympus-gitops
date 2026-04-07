@@ -29,22 +29,18 @@ spec:
 
     ports:
       web:
-        port: 80
-        # Enable HTTP so cloudflared can route to traefik-tnet via http://traefik-tnet.traefik-tnet:80
+        # HTTP accessible at traefik-tnet.traefik-tnet:8000 (chart default container port)
         expose:
           default: true
       websecure:
-        port: 443
-        nodePort: 31443
         expose:
           default: true
         http:
           tls:
             enabled: true
       traefik:
-        port: 9000
         expose:
-          default: true  # expose ClusterIP port so main k3s Traefik can route to it
+          default: true  # expose dashboard port (8080) so main k3s Traefik can proxy to it
 
     api:
       dashboard: true

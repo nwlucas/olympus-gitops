@@ -15,6 +15,6 @@ spec:
       kind: Rule
       services:
         - name: traefik-ext
-          port: 9000
+          port: 8080
   tls:
     secretName: traefik-ext-dashboard-tls
