@@ -7,3 +7,6 @@ helmCharts:
     releaseName: traefik-ext
     namespace: traefik-ext
     valuesFile: values.yaml
+resources:
+  - dashboard-certificate.yaml
+  - dashboard-ingressroute.yaml

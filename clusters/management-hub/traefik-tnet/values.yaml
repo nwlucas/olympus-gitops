@@ -14,8 +14,9 @@ service:
 ports:
   web:
     port: 80
+    # Enable HTTP so cloudflared can route to traefik-tnet via http://traefik-tnet.traefik-tnet:80
     expose:
-      default: false
+      default: true
   websecure:
     port: 443
     nodePort: 31443
@@ -26,7 +27,7 @@ ports:
         enabled: true
 
 api:
-  dashboard: false
+  dashboard: true
 
 logs:
   general:

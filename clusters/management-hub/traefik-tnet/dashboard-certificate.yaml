@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik-tnet-dashboard-tls
+  namespace: traefik-tnet
+spec:
+  secretName: traefik-tnet-dashboard-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - traefik-tnet.nwlnexus.net

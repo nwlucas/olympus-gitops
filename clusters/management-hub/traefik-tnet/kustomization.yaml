@@ -7,3 +7,6 @@ helmCharts:
     releaseName: traefik-tnet
     namespace: traefik-tnet
     valuesFile: values.yaml
+resources:
+  - dashboard-certificate.yaml
+  - dashboard-ingressroute.yaml
