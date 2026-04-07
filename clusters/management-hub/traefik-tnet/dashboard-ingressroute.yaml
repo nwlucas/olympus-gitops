@@ -9,6 +9,7 @@ metadata:
     external-dns.alpha.kubernetes.io/target: ing.mgmt.nwlnexus.net
 spec:
   entryPoints:
+    - web
     - websecure
   routes:
     - match: Host(`traefik-tnet.nwlnexus.net`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
