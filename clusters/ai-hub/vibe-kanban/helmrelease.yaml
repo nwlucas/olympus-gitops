@@ -5,6 +5,7 @@ metadata:
   namespace: vibe-kanban
 spec:
   interval: 1h
+  timeout: 10m
   chartRef:
     kind: OCIRepository
     name: vibe-kanban
