@@ -11,3 +11,4 @@ resources:
   - flux-kustomizations/connect-ingress.yaml
   - flux-kustomizations/whoami.yaml
   - flux-kustomizations/qnap.yaml
+  - flux-kustomizations/capacitor.yaml
