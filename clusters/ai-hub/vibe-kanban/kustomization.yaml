@@ -1,13 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-helmCharts:
-  - name: vibe-kanban
-    repo: oci://ghcr.io/everythings-gonna-be-alright/charts
-    version: "0.0.3"
-    releaseName: vibe-kanban
-    namespace: vibe-kanban
-    valuesFile: values.yaml
 resources:
+  - ocirepository.yaml
+  - helmrelease.yaml
   - secrets.yaml
   - certificate.yaml
   - ingressroute.yaml
