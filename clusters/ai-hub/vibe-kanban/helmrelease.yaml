@@ -32,6 +32,8 @@ spec:
         storageClass: local-path
 
     server:
+      image:
+        tag: "remote-v0.1.27"
       env:
         RUST_LOG: "info"
         SERVER_LISTEN_ADDR: "0.0.0.0:8081"
