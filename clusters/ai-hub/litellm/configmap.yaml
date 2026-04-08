@@ -6,7 +6,10 @@ metadata:
 data:
   config.yaml: |
     model_list:
+      # ---------------------------------------------------------------------------
       # Local models via Ollama on the ai-hub host (host.internal:11434)
+      # Reserved for future use / direct addressing.
+      # ---------------------------------------------------------------------------
       - model_name: local-fast
         litellm_params:
           model: ollama/glm-4.7-flash:latest
@@ -17,37 +20,57 @@ data:
           model: ollama/llama3.3:70b
           api_base: http://host.internal:11434
 
-      # Anthropic models — friendly aliases for human/external use
+      # ---------------------------------------------------------------------------
+      # Haiku tier → glm-4.7-flash (fast local)
+      # Covers vibe-kanban UI alias + full Anthropic model ID pass-through.
+      # ---------------------------------------------------------------------------
+      - model_name: haiku
+        litellm_params:
+          model: ollama/glm-4.7-flash:latest
+          api_base: http://host.internal:11434
+
+      - model_name: claude-haiku-4-5-20251001
+        litellm_params:
+          model: ollama/glm-4.7-flash:latest
+          api_base: http://host.internal:11434
+
+      # ---------------------------------------------------------------------------
+      # Sonnet tier → llama3.3:70b (local heavy)
+      # Covers vibe-kanban UI alias + full Anthropic model ID pass-throughs.
+      # claude-sonnet-4-6 is the default model Claude Code requests in the worker.
+      # ---------------------------------------------------------------------------
       - model_name: sonnet
         litellm_params:
-          model: anthropic/claude-sonnet-4-6
-          api_key: os.environ/ANTHROPIC_API_KEY
+          model: ollama/llama3.3:70b
+          api_base: http://host.internal:11434
 
+      - model_name: claude-sonnet-4-6
+        litellm_params:
+          model: ollama/llama3.3:70b
+          api_base: http://host.internal:11434
+
+      - model_name: claude-sonnet-4-5
+        litellm_params:
+          model: ollama/llama3.3:70b
+          api_base: http://host.internal:11434
+
+      # ---------------------------------------------------------------------------
+      # Opus tier → Anthropic (pass-through, real API spend)
+      # Covers vibe-kanban UI aliases + full Anthropic model ID pass-throughs.
+      # ---------------------------------------------------------------------------
       - model_name: opus
         litellm_params:
           model: anthropic/claude-opus-4-6
           api_key: os.environ/ANTHROPIC_API_KEY
 
-      # Anthropic model ID pass-throughs — used by Claude Code which requests
-      # models by their full Anthropic ID (e.g. claude-sonnet-4-6).
-      - model_name: claude-sonnet-4-6
+      - model_name: opus[1m]
         litellm_params:
-          model: anthropic/claude-sonnet-4-6
+          model: anthropic/claude-opus-4-6
           api_key: os.environ/ANTHROPIC_API_KEY
 
       - model_name: claude-opus-4-6
         litellm_params:
           model: anthropic/claude-opus-4-6
-          api_key: os.environ/ANTHROPIC_API_KEY
-
-      - model_name: claude-haiku-4-5-20251001
-        litellm_params:
-          model: anthropic/claude-haiku-4-5-20251001
-          api_key: os.environ/ANTHROPIC_API_KEY
-
-      - model_name: claude-sonnet-4-5
-        litellm_params:
-          model: anthropic/claude-sonnet-4-5
           api_key: os.environ/ANTHROPIC_API_KEY
 
       - model_name: claude-opus-4-5
