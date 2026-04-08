@@ -10,5 +10,5 @@ resources:
   - flux-kustomizations/traefik-tnet.yaml
   - flux-kustomizations/connect-ingress.yaml
   - flux-kustomizations/whoami.yaml
-  - flux-kustomizations/qnap.yaml
+  - flux-kustomizations/qnap-ui.yaml
   - flux-kustomizations/headlamp.yaml
