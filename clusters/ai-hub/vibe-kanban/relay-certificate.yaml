@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
-    - relay.nwlnexus.net
+    - vk-relay.nwlnexus.net

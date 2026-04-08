@@ -4,13 +4,13 @@ metadata:
   name: vibe-relay
   namespace: vibe-kanban
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: relay.nwlnexus.net
+    external-dns.alpha.kubernetes.io/hostname: vk-relay.nwlnexus.net
     external-dns.alpha.kubernetes.io/target: ing.ai.nwlnexus.net
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`relay.nwlnexus.net`)
+    - match: Host(`vk-relay.nwlnexus.net`)
       kind: Rule
       services:
         - name: vibe-kanban-relay
