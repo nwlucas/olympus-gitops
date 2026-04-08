@@ -18,5 +18,15 @@ spec:
     config:
       inCluster: true
       inClusterContextName: "management-hub"
+    extraArgs:
+      - --kubeconfig=/headlamp/kubeconfigs/ai-hub/kubeconfig
+    extraVolumes:
+      - name: ai-hub-kubeconfig
+        secret:
+          secretName: ai-hub-kubeconfig
+    extraVolumeMounts:
+      - name: ai-hub-kubeconfig
+        mountPath: /headlamp/kubeconfigs/ai-hub
+        readOnly: true
     service:
       type: ClusterIP
