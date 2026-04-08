@@ -65,19 +65,16 @@ spec:
           set -e
 
           # Set host display name in vibe-kanban config
-          CONFIG_DIR="/home/node/.local/share/vibe-kanban"
-          CONFIG_FILE="$CONFIG_DIR/config.json"
-          mkdir -p "$CONFIG_DIR"
-          if [ -f "$CONFIG_FILE" ]; then
-            node -e "
-              const fs = require('fs');
-              const cfg = JSON.parse(fs.readFileSync('$CONFIG_FILE', 'utf8'));
-              cfg.host_nickname = 'macst-02';
-              fs.writeFileSync('$CONFIG_FILE', JSON.stringify(cfg, null, 2));
-            "
-          else
-            echo '{"config_version":"v8","host_nickname":"macst-02","relay_enabled":true}' > "$CONFIG_FILE"
-          fi
+          node -e "
+            const fs = require('fs');
+            const dir = '/home/node/.local/share/vibe-kanban';
+            const p = dir + '/config.json';
+            fs.mkdirSync(dir, { recursive: true });
+            const cfg = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : { config_version: 'v8', relay_enabled: true };
+            cfg.host_nickname = 'macst-02';
+            fs.writeFileSync(p, JSON.stringify(cfg, null, 2));
+            console.log('host_nickname set to macst-02');
+          "
 
           # Clone repo only if not already present (PVC persists across restarts)
           clone_if_missing() {
