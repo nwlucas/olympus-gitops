@@ -53,6 +53,9 @@ spec:
         VK_ALLOWED_ORIGINS: "https://vibe.nwlnexus.net"
         VK_SHARED_API_BASE: ""
         VK_SHARED_RELAY_API_BASE: ""
+        # Route Claude Code through LiteLLM for centralised model management.
+        # ANTHROPIC_API_KEY (injected via ExternalSecret) is the LiteLLM master key.
+        ANTHROPIC_BASE_URL: "http://litellm.litellm.svc.cluster.local:4000"
       persistence:
         homeNode:
           storageClass: local-path
