@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - externalsecret.yaml
-  - ocirepository.yaml
+  - helmrepository.yaml
   - helmrelease.yaml
   - certificate.yaml
   - ingressroute.yaml

@@ -8,8 +8,9 @@ spec:
   chart:
     spec:
       chart: vibe-kanban
+      version: "0.0.4"
       sourceRef:
-        kind: OCIRepository
+        kind: HelmRepository
         name: vibe-kanban
         namespace: vibe-kanban
   install:

@@ -1,11 +1,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
+kind: HelmRepository
 metadata:
   name: vibe-kanban
   namespace: vibe-kanban
 spec:
+  type: oci
   interval: 10m
-  url: oci://ghcr.io/nwlucas/charts/vibe-kanban
-  ref:
-    tag: "0.0.4"
-  provider: generic
+  url: oci://ghcr.io/nwlucas/charts
