@@ -18,13 +18,13 @@ spec:
     config:
       inCluster: true
       inClusterContextName: "management-hub"
-    extraArgs:
-      - --kubeconfig=/headlamp/kubeconfigs/ai-hub/kubeconfig
-    extraVolumes:
+      extraArgs:
+        - --kubeconfig=/headlamp/kubeconfigs/ai-hub/kubeconfig
+    volumes:
       - name: ai-hub-kubeconfig
         secret:
           secretName: ai-hub-kubeconfig
-    extraVolumeMounts:
+    volumeMounts:
       - name: ai-hub-kubeconfig
         mountPath: /headlamp/kubeconfigs/ai-hub
         readOnly: true
