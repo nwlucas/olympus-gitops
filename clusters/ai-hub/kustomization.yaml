@@ -6,4 +6,5 @@ resources:
   - flux-kustomizations/traefik.yaml
   - flux-kustomizations/external-dns.yaml
   - flux-kustomizations/cloudflared.yaml
+  - flux-kustomizations/litellm.yaml
   - flux-kustomizations/vibe-kanban.yaml
