@@ -22,7 +22,7 @@ spec:
     volumes:
       - name: combined-kubeconfig
         secret:
-          secretName: ai-hub-kubeconfig
+          secretName: headlamp-combined-kubeconfig
     volumeMounts:
       - name: combined-kubeconfig
         mountPath: /headlamp/kubeconfigs/combined
