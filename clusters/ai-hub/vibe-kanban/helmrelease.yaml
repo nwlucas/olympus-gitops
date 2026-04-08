@@ -56,6 +56,54 @@ spec:
           storageClass: local-path
       ingress:
         enabled: false
+      preStartScript:
+        enabled: true
+        script: |
+          #!/bin/sh
+          set -e
+          mkdir -p /home/node/.ssh
+          chmod 700 /home/node/.ssh
+
+          # SSH config: personal key for github.com, work key for github.com-work alias
+          cat > /home/node/.ssh/config << 'EOF'
+          Host github.com
+            HostName github.com
+            User git
+            IdentityFile /etc/ssh-keys/olympus-deploy-key
+            StrictHostKeyChecking no
+
+          Host github.com-work
+            HostName github.com
+            User git
+            IdentityFile /etc/ssh-keys/work-deploy-key
+            StrictHostKeyChecking no
+          EOF
+          chmod 600 /home/node/.ssh/config
+
+          # Olympus SDK project (private via SSH, public via HTTPS)
+          git clone git@github.com:nwlnexus/olympus-sdk /home/node/olympus-sdk
+          git clone https://github.com/nwlucas/olympus-infra /home/node/olympus-infra
+          git clone https://github.com/nwlucas/olympus-gitops /home/node/olympus-gitops
+
+          # Work repos (shared work SSH key via github.com-work alias)
+          git clone git@github.com-work:dtlr/marquee /home/node/marquee
+          git clone git@github.com-work:dtlr/formcenter /home/node/formcenter
+          git clone git@github.com-work:dtlr/odysseus /home/node/odysseus
+          git clone git@github.com-work:dtlr/itpulse /home/node/itpulse
+      extraVolumes:
+        - name: ssh-keys
+          secret:
+            secretName: vibe-kanban-secrets
+            defaultMode: 0600
+            items:
+              - key: github-olympus-deploy-key
+                path: olympus-deploy-key
+              - key: github-work-deploy-key
+                path: work-deploy-key
+      extraVolumeMounts:
+        - name: ssh-keys
+          mountPath: /etc/ssh-keys
+          readOnly: true
 
     # ingress.host is used for SERVER_PUBLIC_BASE_URL even when ingress.enabled=false.
     # Traefik IngressRoute handles actual ingress instead.
