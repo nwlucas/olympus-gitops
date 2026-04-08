@@ -7,3 +7,5 @@ resources:
   - helmrelease.yaml
   - certificate.yaml
   - ingressroute.yaml
+  - relay-certificate.yaml
+  - relay-ingressroute.yaml
