@@ -1,0 +1,69 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vibe-kanban
+  namespace: vibe-kanban
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: vibe-kanban
+      sourceRef:
+        kind: OCIRepository
+        name: vibe-kanban
+        namespace: vibe-kanban
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    secrets:
+      existingSecret: vibe-kanban-secrets
+
+    postgres:
+      storage:
+        storageClass: local-path
+
+    electric:
+      storage:
+        storageClass: local-path
+
+    server:
+      env:
+        RUST_LOG: "info"
+        SERVER_LISTEN_ADDR: "0.0.0.0:8081"
+
+    relay:
+      enabled: true
+      ingress:
+        enabled: false
+
+    worker:
+      enabled: true
+      image:
+        tag: "worker-0.1.36"
+      env:
+        RUST_LOG: "info"
+        VK_TUNNEL: "1"
+        VK_ALLOWED_ORIGINS: "https://vibe.nwlnexus.net"
+        VK_SHARED_API_BASE: ""
+        VK_SHARED_RELAY_API_BASE: ""
+      persistence:
+        homeNode:
+          storageClass: local-path
+      ingress:
+        enabled: false
+
+    # ingress.host is used for SERVER_PUBLIC_BASE_URL even when ingress.enabled=false.
+    # Traefik IngressRoute handles actual ingress instead.
+    ingress:
+      enabled: false
+      host: vibe.nwlnexus.net
+
+    networkPolicy:
+      enabled: false
+
+    podDisruptionBudget:
+      enabled: false
