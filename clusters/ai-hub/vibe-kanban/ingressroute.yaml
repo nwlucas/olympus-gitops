@@ -14,6 +14,6 @@ spec:
       kind: Rule
       services:
         - name: vibe-kanban-server
-          port: 3000
+          port: 8081
   tls:
     secretName: vibe-tls
