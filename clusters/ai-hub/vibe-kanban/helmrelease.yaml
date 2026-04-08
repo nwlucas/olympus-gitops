@@ -62,16 +62,27 @@ spec:
           #!/bin/sh
           set -e
 
+          # Clone repo only if not already present (PVC persists across restarts)
+          clone_if_missing() {
+            local url=$1
+            local dest=$2
+            if [ ! -d "$dest/.git" ]; then
+              git clone "$url" "$dest"
+            else
+              echo "Skipping $dest — already cloned"
+            fi
+          }
+
           # Olympus SDK project
-          git clone https://x-access-token:${GITHUB_OLYMPUS_TOKEN}@github.com/nwlnexus/olympus-sdk /home/node/olympus-sdk
-          git clone https://github.com/nwlucas/olympus-infra /home/node/olympus-infra
-          git clone https://github.com/nwlucas/olympus-gitops /home/node/olympus-gitops
+          clone_if_missing "https://x-access-token:${GITHUB_OLYMPUS_TOKEN}@github.com/nwlnexus/olympus-sdk" /home/node/olympus-sdk
+          clone_if_missing "https://github.com/nwlucas/olympus-infra" /home/node/olympus-infra
+          clone_if_missing "https://github.com/nwlucas/olympus-gitops" /home/node/olympus-gitops
 
           # Work repos
-          git clone https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/marquee /home/node/marquee
-          git clone https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/formcenter /home/node/formcenter
-          git clone https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/odysseus /home/node/odysseus
-          git clone https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/itpulse /home/node/itpulse
+          clone_if_missing "https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/marquee" /home/node/marquee
+          clone_if_missing "https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/formcenter" /home/node/formcenter
+          clone_if_missing "https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/odysseus" /home/node/odysseus
+          clone_if_missing "https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/itpulse" /home/node/itpulse
 
     # ingress.host is used for SERVER_PUBLIC_BASE_URL even when ingress.enabled=false.
     # Traefik IngressRoute handles actual ingress instead.
