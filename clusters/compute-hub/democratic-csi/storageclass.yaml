@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: qnap-iscsi
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: org.democratic-csi.qnap-iscsi
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true
+parameters:
+  fsType: ext4

@@ -1,0 +1,77 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: democratic-csi-qnap-iscsi
+  namespace: democratic-csi
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: democratic-csi
+      version: "0.14.7"
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi
+        namespace: democratic-csi
+  valuesFrom:
+    # QNAP iSCSI credentials injected from ExternalSecret (see externalsecret.yaml)
+    - kind: Secret
+      name: qnap-iscsi-creds
+      valuesKey: portal-host
+      targetPath: driver.config.iscsi.targetPortal
+    - kind: Secret
+      name: qnap-iscsi-creds
+      valuesKey: iqn-prefix
+      targetPath: driver.config.iscsi.namePrefix
+    - kind: Secret
+      name: qnap-iscsi-creds
+      valuesKey: username
+      targetPath: driver.config.httpConnection.username
+    - kind: Secret
+      name: qnap-iscsi-creds
+      valuesKey: password
+      targetPath: driver.config.httpConnection.password
+  values:
+    csiDriver:
+      name: "org.democratic-csi.qnap-iscsi"
+
+    storageClasses:
+      - name: qnap-iscsi
+        defaultClass: false
+        reclaimPolicy: Delete
+        volumeBindingMode: Immediate
+        allowVolumeExpansion: true
+        parameters:
+          fsType: ext4
+
+    driver:
+      config:
+        # QNAP iSCSI target configuration
+        # NOTE: democratic-csi does not have native QNAP support.
+        # The values below configure the generic iSCSI driver.
+        # After QNAP iSCSI target is configured, fill compute-hub-qnap-iscsi
+        # in 1Password and the ExternalSecret will inject the credentials.
+        driver: freenas-api-iscsi
+        httpConnection:
+          # QNAP admin API endpoint — injected via valuesFrom above
+          host: ""         # placeholder — injected from qnap-iscsi-creds secret
+          port: 8080
+          allowInsecure: true
+          apiVersion: 2
+        zfs:
+          # QNAP volume pool — update to match the QNAP storage pool name
+          datasetParentName: "DataVol1/k8s"
+          detachedSnapshotsDatasetParentName: "DataVol1/k8s-snaps"
+          zvolChunksizeMb: 512
+          zvolEnableCompression: true
+          zvolBlocksize: "16K"
+        iscsi:
+          # targetPortal injected via valuesFrom above
+          targetPortal: ""    # placeholder
+          # IQN prefix — QNAP typically uses iqn.2004-04.com.qnap:...
+          namePrefix: ""      # placeholder — injected from qnap-iscsi-creds secret
+          nameSuffix: "-k8s"
+          targetGroups:
+            - targetGroupPortalGroup: 1
+              targetGroupInitiatorGroup: 1
+              targetGroupAuthType: None

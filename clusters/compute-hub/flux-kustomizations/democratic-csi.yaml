@@ -1,0 +1,17 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: democratic-csi
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./clusters/compute-hub/democratic-csi
+  prune: true
+  wait: true
+  timeout: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: external-secrets
+    - name: longhorn
