@@ -11,6 +11,7 @@ spec:
     providers:
       kubernetesCRD:
         ingressClass: traefik
+        allowExternalNameServices: true
       kubernetesIngress:
         ingressClass: traefik
     ports:
