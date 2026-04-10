@@ -13,12 +13,12 @@ data:
       - model_name: local-fast
         litellm_params:
           model: ollama/glm-4.7-flash:latest
-          api_base: http://192.168.253.5:11434
+          api_base: http://ai-hub.nwlnexus.net:11434
 
       - model_name: local-heavy
         litellm_params:
           model: ollama/llama3.3:70b
-          api_base: http://192.168.253.5:11434
+          api_base: http://ai-hub.nwlnexus.net:11434
 
       # ---------------------------------------------------------------------------
       # Haiku tier → glm-4.7-flash (fast local)
@@ -27,12 +27,12 @@ data:
       - model_name: haiku
         litellm_params:
           model: ollama/glm-4.7-flash:latest
-          api_base: http://192.168.253.5:11434
+          api_base: http://ai-hub.nwlnexus.net:11434
 
       - model_name: claude-haiku-4-5-20251001
         litellm_params:
           model: ollama/glm-4.7-flash:latest
-          api_base: http://192.168.253.5:11434
+          api_base: http://ai-hub.nwlnexus.net:11434
 
       # ---------------------------------------------------------------------------
       # Sonnet tier → glm-4.7-flash (local, safe for 64GB alongside haiku)
@@ -44,17 +44,17 @@ data:
       - model_name: sonnet
         litellm_params:
           model: ollama/glm-4.7-flash:latest
-          api_base: http://192.168.253.5:11434
+          api_base: http://ai-hub.nwlnexus.net:11434
 
       - model_name: claude-sonnet-4-6
         litellm_params:
           model: ollama/glm-4.7-flash:latest
-          api_base: http://192.168.253.5:11434
+          api_base: http://ai-hub.nwlnexus.net:11434
 
       - model_name: claude-sonnet-4-5
         litellm_params:
           model: ollama/glm-4.7-flash:latest
-          api_base: http://192.168.253.5:11434
+          api_base: http://ai-hub.nwlnexus.net:11434
 
       # ---------------------------------------------------------------------------
       # Opus tier → Anthropic (pass-through, real API spend)
