@@ -9,7 +9,6 @@ data:
   kubeconfig-items: |
     management-hub-kubeconfig
     compute-hub-kubeconfig
-    ai-hub-kubeconfig-tailnet
   # Name of the merged document written back to 1Password
   combined-item-name: headlamp-combined-kubeconfig
   # Which cluster is the default context in Headlamp (must match a context name
