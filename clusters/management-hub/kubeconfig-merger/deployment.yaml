@@ -37,15 +37,6 @@ spec:
                 secretKeyRef:
                   name: eso-op-connect-token
                   key: token
-            # Events API token (optional — enables real-time item change detection)
-            # Set to empty string when the ExternalSecret hasn't synced yet;
-            # the merger falls back to timer-only mode gracefully.
-            - name: OP_EVENTS_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: kubeconfig-merger-events-token
-                  key: token
-                  optional: true
             - name: K8S_NAMESPACE
               value: headlamp
             - name: K8S_SECRET_NAME

@@ -15,7 +15,11 @@ data:
   # in one of the individual kubeconfigs above)
   current-context: management-hub
   vault: Dev
-  # Fallback full-sync interval (also used when Events API is not configured)
+  # How often to poll 1Password item metadata (updated_at) to detect changes.
+  # One cheap GET /items call per interval — no file content fetched unless a
+  # timestamp changes. Replaces the Events API (which requires Business tier).
+  watch-interval: 5m
+  # Full hash-compare + k8s Secret sync fallback interval
   sync-interval: 4h
   # abort sync if any item is missing (false = continue with available configs)
   allow-partial: "false"
