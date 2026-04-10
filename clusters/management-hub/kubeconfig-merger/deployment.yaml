@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubeconfig-merger
+  namespace: external-secrets
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubeconfig-merger
+  template:
+    metadata:
+      labels:
+        app: kubeconfig-merger
+    spec:
+      serviceAccountName: kubeconfig-merger
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: merger
+          image: ghcr.io/nwlucas/kubeconfig-merger:latest
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          env:
+            - name: OP_CONNECT_HOST
+              value: "http://onepassword-connect.1password:8080"
+            # Connect token: reuse the same Secret that ESO uses (same namespace)
+            - name: OP_CONNECT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: eso-op-connect-token
+                  key: token
+            # Events API token (optional — enables real-time item change detection)
+            # Set to empty string when the ExternalSecret hasn't synced yet;
+            # the merger falls back to timer-only mode gracefully.
+            - name: OP_EVENTS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: kubeconfig-merger-events-token
+                  key: token
+                  optional: true
+            - name: K8S_NAMESPACE
+              value: headlamp
+            - name: K8S_SECRET_NAME
+              value: headlamp-combined-kubeconfig
+          volumeMounts:
+            - name: config
+              mountPath: /etc/kubeconfig-merger
+              readOnly: true
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 64Mi
+      volumes:
+        - name: config
+          configMap:
+            name: kubeconfig-merger

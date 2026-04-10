@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubeconfig-merger
+  namespace: external-secrets
+data:
+  # One 1Password document name per line. Changes here hot-reload the app
+  # (no pod restart needed — fsnotify detects the ConfigMap volume swap).
+  kubeconfig-items: |
+    management-hub-kubeconfig
+    compute-hub-kubeconfig
+  # Name of the merged document written back to 1Password
+  combined-item-name: headlamp-combined-kubeconfig
+  # Which cluster is the default context in Headlamp (must match a context name
+  # in one of the individual kubeconfigs above)
+  current-context: management-hub
+  vault: Dev
+  # Fallback full-sync interval (also used when Events API is not configured)
+  sync-interval: 4h
+  # abort sync if any item is missing (false = continue with available configs)
+  allow-partial: "false"

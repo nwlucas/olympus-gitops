@@ -1,0 +1,61 @@
+---
+# ServiceAccount for the merger, in the same namespace as the Connect token
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubeconfig-merger
+  namespace: external-secrets
+---
+# Role + RoleBinding granting the merger read access to its own ConfigMap
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: kubeconfig-merger
+  namespace: external-secrets
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    resourceNames: ["kubeconfig-merger"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kubeconfig-merger
+  namespace: external-secrets
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: kubeconfig-merger
+subjects:
+  - kind: ServiceAccount
+    name: kubeconfig-merger
+    namespace: external-secrets
+---
+# Role + RoleBinding granting the merger write access to Secrets in the headlamp
+# namespace (where it manages headlamp-combined-kubeconfig).
+# A RoleBinding in namespace A can reference a ServiceAccount from namespace B.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: kubeconfig-merger-writer
+  namespace: headlamp
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["headlamp-combined-kubeconfig"]
+    verbs: ["get", "create", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kubeconfig-merger-writer
+  namespace: headlamp
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: kubeconfig-merger-writer
+subjects:
+  - kind: ServiceAccount
+    name: kubeconfig-merger
+    namespace: external-secrets
