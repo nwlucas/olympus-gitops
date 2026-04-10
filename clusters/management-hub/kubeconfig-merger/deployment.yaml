@@ -21,7 +21,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: merger
-          image: ghcr.io/nwlucas/kubeconfig-merger:latest
+          image: ghcr.io/nwlnexus/kubeconfig-merger:latest
           imagePullPolicy: Always
           securityContext:
             allowPrivilegeEscalation: false
