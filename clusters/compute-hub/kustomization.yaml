@@ -12,3 +12,4 @@ resources:
   - flux-kustomizations/democratic-csi.yaml
   - flux-kustomizations/whoami.yaml
   - flux-kustomizations/obsidian.yaml
+  - flux-kustomizations/tailscale-operator.yaml
