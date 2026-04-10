@@ -7,6 +7,6 @@ spec:
   type: ExternalName
   externalName: qnap.nwlnexus.net
   ports:
-    - name: http
-      port: 8080
+    - name: https
+      port: 8443
       protocol: TCP

@@ -5,3 +5,4 @@ resources:
   - service.yaml
   - certificate.yaml
   - ingressroute.yaml
+  - serverstransport.yaml

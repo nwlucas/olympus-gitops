@@ -15,6 +15,8 @@ spec:
       kind: Rule
       services:
         - name: qnap-ui
-          port: 8080
+          port: 8443
+          scheme: https
+          serversTransport: qnap-ui-transport
   tls:
     secretName: qnap-ui-tls
