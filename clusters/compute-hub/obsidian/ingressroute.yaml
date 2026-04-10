@@ -1,0 +1,20 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: obsidian
+  namespace: obsidian
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    external-dns.alpha.kubernetes.io/hostname: notes.nwlnexus.xyz
+    external-dns.alpha.kubernetes.io/target: ing.compute.nwlnexus.net
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`notes.nwlnexus.xyz`)
+      kind: Rule
+      services:
+        - name: obsidian
+          port: 3000
+  tls:
+    secretName: obsidian-tls

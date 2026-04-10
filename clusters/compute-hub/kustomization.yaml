@@ -11,3 +11,4 @@ resources:
   - flux-kustomizations/longhorn.yaml
   - flux-kustomizations/democratic-csi.yaml
   - flux-kustomizations/whoami.yaml
+  - flux-kustomizations/obsidian.yaml
