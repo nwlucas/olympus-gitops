@@ -1,0 +1,115 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: vibe-kanban
+  namespace: vibe-kanban
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: vibe-kanban
+      version: "0.0.6"
+      sourceRef:
+        kind: HelmRepository
+        name: vibe-kanban
+        namespace: vibe-kanban
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    secrets:
+      existingSecret: vibe-kanban-secrets
+
+    postgres:
+      storage:
+        storageClass: local-path
+
+    electric:
+      storage:
+        storageClass: local-path
+
+    server:
+      image:
+        tag: "remote-v0.1.27"
+      env:
+        RUST_LOG: "info"
+        SERVER_LISTEN_ADDR: "0.0.0.0:8081"
+
+    relay:
+      enabled: true
+      ingress:
+        enabled: false
+
+    worker:
+      enabled: true
+      image:
+        tag: "worker-0.1.36"
+      env:
+        RUST_LOG: "info"
+        VK_TUNNEL: "1"
+      extraEnv:
+        # Route Claude Code through LiteLLM for centralised model management.
+        # ANTHROPIC_API_KEY (injected via ExternalSecret) is the LiteLLM master key.
+        - name: ANTHROPIC_BASE_URL
+          value: "http://litellm.litellm.svc.cluster.local:4000"
+        - name: VK_ALLOWED_ORIGINS
+          value: "https://vibe.nwlnexus.xyz"
+      persistence:
+        homeNode:
+          storageClass: local-path
+      ingress:
+        enabled: false
+      preStartScript:
+        enabled: true
+        script: |
+          #!/bin/sh
+          set -e
+
+          # Set host display name in vibe-kanban config
+          node -e "
+            const fs = require('fs');
+            const dir = '/home/node/.local/share/vibe-kanban';
+            const p = dir + '/config.json';
+            fs.mkdirSync(dir, { recursive: true });
+            const cfg = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : { config_version: 'v8', relay_enabled: true };
+            cfg.host_nickname = 'mgmt-hub';
+            fs.writeFileSync(p, JSON.stringify(cfg, null, 2));
+            console.log('host_nickname set to mgmt-hub');
+          "
+
+          # Clone repo only if not already present (PVC persists across restarts)
+          clone_if_missing() {
+            local url=$1
+            local dest=$2
+            if [ ! -d "$dest/.git" ]; then
+              git clone "$url" "$dest"
+            else
+              echo "Skipping $dest — already cloned"
+            fi
+          }
+
+          # Olympus SDK project
+          clone_if_missing "https://x-access-token:${GITHUB_OLYMPUS_TOKEN}@github.com/nwlnexus/olympus-sdk" /home/node/olympus-sdk
+          clone_if_missing "https://github.com/nwlucas/olympus-infra" /home/node/olympus-infra
+          clone_if_missing "https://github.com/nwlucas/olympus-gitops" /home/node/olympus-gitops
+
+          # Work repos
+          clone_if_missing "https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/marquee" /home/node/marquee
+          clone_if_missing "https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/formcenter" /home/node/formcenter
+          clone_if_missing "https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/odysseus" /home/node/odysseus
+          clone_if_missing "https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/itpulse" /home/node/itpulse
+
+    # ingress.host is used for SERVER_PUBLIC_BASE_URL even when ingress.enabled=false.
+    # Traefik IngressRoute handles actual ingress instead.
+    ingress:
+      enabled: false
+      host: vibe.nwlnexus.xyz
+
+    networkPolicy:
+      enabled: false
+
+    podDisruptionBudget:
+      enabled: false

@@ -7,6 +7,7 @@ resources:
   - flux-kustomizations/cloudflared.yaml
   - flux-kustomizations/traefik-config.yaml
   - flux-kustomizations/litellm.yaml
+  - flux-kustomizations/vibe-kanban.yaml
   - flux-kustomizations/connect-ingress.yaml
   - flux-kustomizations/whoami.yaml
   - flux-kustomizations/qnap-ui.yaml
