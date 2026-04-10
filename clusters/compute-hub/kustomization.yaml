@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - flux-kustomizations/traefik-config.yaml
   - flux-kustomizations/external-secrets.yaml
+  - flux-kustomizations/external-secrets-config.yaml
   - flux-kustomizations/cert-manager.yaml
   - flux-kustomizations/external-dns.yaml
   - flux-kustomizations/cloudflared.yaml
