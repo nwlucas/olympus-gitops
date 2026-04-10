@@ -8,3 +8,4 @@ resources:
   - ingressroute.yaml
   - serviceaccount.yaml
   - clusterrolebinding.yaml
+  - kubeconfig-secret.yaml
