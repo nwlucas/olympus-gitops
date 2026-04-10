@@ -18,9 +18,15 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  valuesFrom:
+    - kind: Secret
+      name: operator-oauth
+      valuesKey: clientId
+      targetPath: oauth.clientId
+    - kind: Secret
+      name: operator-oauth
+      valuesKey: clientSecret
+      targetPath: oauth.clientSecret
   values:
-    oauth:
-      clientId: ""
-      clientSecret: ""
     operatorConfig:
       hostname: management-hub-operator
