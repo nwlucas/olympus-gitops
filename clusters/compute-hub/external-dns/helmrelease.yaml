@@ -29,6 +29,7 @@ spec:
             key: api-email
     domainFilters:
       - nwlnexus.net
+      - nwlnexus.xyz
     policy: sync
     sources:
       - service

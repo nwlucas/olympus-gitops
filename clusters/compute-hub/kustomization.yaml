@@ -10,3 +10,4 @@ resources:
   - flux-kustomizations/cloudflared.yaml
   - flux-kustomizations/longhorn.yaml
   - flux-kustomizations/democratic-csi.yaml
+  - flux-kustomizations/whoami.yaml
