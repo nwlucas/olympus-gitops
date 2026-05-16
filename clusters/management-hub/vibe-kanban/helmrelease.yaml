@@ -93,8 +93,8 @@ spec:
 
           # Olympus SDK project
           clone_if_missing "https://x-access-token:${GITHUB_OLYMPUS_TOKEN}@github.com/nwlnexus/olympus-sdk" /home/node/olympus-sdk
-          clone_if_missing "https://github.com/nwlucas/olympus-infra" /home/node/olympus-infra
-          clone_if_missing "https://github.com/nwlucas/olympus-gitops" /home/node/olympus-gitops
+          clone_if_missing "https://github.com/nwlnexus/olympus-infra" /home/node/olympus-infra
+          clone_if_missing "https://github.com/nwlnexus/olympus-gitops" /home/node/olympus-gitops
 
           # Work repos
           clone_if_missing "https://x-access-token:${GITHUB_WORK_TOKEN}@github.com/dtlr/marquee" /home/node/marquee
