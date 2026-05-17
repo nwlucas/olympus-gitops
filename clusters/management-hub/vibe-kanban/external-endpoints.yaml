@@ -45,3 +45,28 @@ subsets:
     ports:
       - port: 8082
         protocol: TCP
+---
+# Worker host UI — for one-time pairing (Settings -> Remote Access -> Show pairing code).
+# Public via vk-host.nwlnexus.xyz, gated by Cloudflare Access (Olympus MGMT app).
+apiVersion: v1
+kind: Service
+metadata:
+  name: vibe-kanban-worker
+  namespace: vibe-kanban
+spec:
+  ports:
+    - port: 8083
+      targetPort: 8083
+      protocol: TCP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: vibe-kanban-worker
+  namespace: vibe-kanban
+subsets:
+  - addresses:
+      - ip: 100.95.232.41
+    ports:
+      - port: 8083
+        protocol: TCP

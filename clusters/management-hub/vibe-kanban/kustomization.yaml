@@ -7,3 +7,5 @@ resources:
   - ingressroute.yaml
   - relay-certificate.yaml
   - relay-ingressroute.yaml
+  - worker-certificate.yaml
+  - worker-ingressroute.yaml
