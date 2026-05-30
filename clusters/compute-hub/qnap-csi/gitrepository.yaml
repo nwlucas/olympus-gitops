@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: qnap-csi-plugin
+  namespace: trident
+spec:
+  interval: 1h
+  url: https://github.com/qnap-dev/QNAP-CSI-PlugIn.git
+  ref:
+    tag: v1.6.0
