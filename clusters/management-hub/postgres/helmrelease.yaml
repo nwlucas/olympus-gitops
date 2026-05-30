@@ -29,3 +29,5 @@ spec:
         size: 50Gi
     readReplicas:
       replicaCount: 0
+    volumePermissions:
+      enabled: true
