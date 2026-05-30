@@ -18,10 +18,6 @@ spec:
       name: postgres-creds
       valuesKey: postgres-password
       targetPath: auth.password
-    - kind: Secret
-      name: postgres-creds
-      valuesKey: postgres-password
-      targetPath: auth.postgresPassword
   values:
     auth:
       username: sentry
