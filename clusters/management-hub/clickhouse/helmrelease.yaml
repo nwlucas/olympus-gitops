@@ -29,9 +29,9 @@ spec:
         value: UTC
     persistence:
       enabled: true
-      storageClass: qnap-iscsi
+      storageClass: qnap-nfs
       size: 50Gi
     logPersistence:
       enabled: true
-      storageClass: qnap-iscsi
+      storageClass: qnap-nfs
       size: 20Gi

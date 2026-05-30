@@ -25,6 +25,6 @@ spec:
     master:
       persistence:
         enabled: true
-        storageClass: qnap-iscsi
+        storageClass: qnap-nfs
         size: 10Gi
       appendOnlyFileMode: "yes"

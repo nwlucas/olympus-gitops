@@ -13,5 +13,5 @@ spec:
     kind: GitRepository
     name: flux-system
   dependsOn:
-    - name: qnap-csi-config
+    - name: nfs-provisioner
     - name: external-secrets

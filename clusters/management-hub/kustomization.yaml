@@ -6,8 +6,7 @@ resources:
   - flux-kustomizations/external-dns.yaml
   - flux-kustomizations/cloudflared.yaml
   - flux-kustomizations/traefik-config.yaml
-  - flux-kustomizations/qnap-csi.yaml
-  - flux-kustomizations/qnap-csi-config.yaml
+  - flux-kustomizations/nfs-provisioner.yaml
   - flux-kustomizations/postgres.yaml
   - flux-kustomizations/redis.yaml
   - flux-kustomizations/kafka.yaml
