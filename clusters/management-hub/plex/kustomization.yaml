@@ -3,5 +3,3 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - plex-external-service.yaml
-  - certificate.yaml
-  - ingressroute.yaml
