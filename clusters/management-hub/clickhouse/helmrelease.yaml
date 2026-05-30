@@ -19,6 +19,9 @@ spec:
       valuesKey: clickhouse-password
       targetPath: auth.password
   values:
+    image:
+      registry: registry-1.docker.io
+      tag: latest
     auth:
       username: default
     clusterName: sentry-clickhouse
