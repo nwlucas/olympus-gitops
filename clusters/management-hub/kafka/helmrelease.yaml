@@ -1,0 +1,35 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kafka
+  namespace: kafka
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: kafka
+      version: "32.4.3"
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: kafka
+  values:
+    kraft:
+      enabled: true
+    zookeeper:
+      enabled: false
+    listeners:
+      client:
+        protocol: PLAINTEXT
+      controller:
+        protocol: PLAINTEXT
+      interbroker:
+        protocol: PLAINTEXT
+    controller:
+      replicaCount: 1
+      persistence:
+        enabled: true
+        storageClass: qnap-iscsi
+        size: 20Gi
+    broker:
+      replicaCount: 0

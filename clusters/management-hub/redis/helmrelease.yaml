@@ -1,0 +1,30 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: redis
+  namespace: redis
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: redis
+      version: "25.5.3"
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: redis
+  valuesFrom:
+    - kind: Secret
+      name: redis-creds
+      valuesKey: redis-password
+      targetPath: auth.password
+  values:
+    auth:
+      enabled: true
+    architecture: standalone
+    master:
+      persistence:
+        enabled: true
+        storageClass: qnap-iscsi
+        size: 10Gi
+      appendOnlyFileMode: "yes"
