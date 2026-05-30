@@ -88,6 +88,8 @@ spec:
       host: smtp.resend.com
       port: 587
       username: resend
+      useTls: true
+      useSsl: false
       from: sentry@nwlnexus.io
 
     filestore:
