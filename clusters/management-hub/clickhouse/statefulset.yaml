@@ -51,6 +51,13 @@ spec:
               mountPath: /var/lib/clickhouse
             - name: logs
               mountPath: /var/log/clickhouse-server
+            - name: config
+              mountPath: /etc/clickhouse-server/users.d/custom.xml
+              subPath: users.xml
+      volumes:
+        - name: config
+          configMap:
+            name: clickhouse-config
   volumeClaimTemplates:
     - metadata:
         name: data
