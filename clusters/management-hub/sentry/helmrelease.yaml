@@ -88,7 +88,18 @@ spec:
       host: smtp.resend.com
       port: 587
       username: resend
+      useTls: true
+      useSsl: false
       from: sentry@nwlnexus.io
+
+    config:
+      sentryConfPy: |
+        # Remove mail TLS options from SENTRY_OPTIONS so they are
+        # runtime-editable via the setup wizard (not locked on disk).
+        # TLS is enforced via the useTls Helm value above; this just
+        # allows the wizard PUT to succeed without a 400 error.
+        SENTRY_OPTIONS.pop('mail.use-tls', None)
+        SENTRY_OPTIONS.pop('mail.use-ssl', None)
 
     filestore:
       backend: filesystem
