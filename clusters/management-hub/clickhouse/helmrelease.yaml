@@ -24,6 +24,8 @@ spec:
     clusterName: sentry-clickhouse
     shards: 1
     replicaCount: 1
+    zookeeper:
+      enabled: false
     extraEnvVars:
       - name: TZ
         value: UTC
