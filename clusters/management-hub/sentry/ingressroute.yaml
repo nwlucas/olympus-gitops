@@ -4,6 +4,7 @@ metadata:
   name: sentry
   namespace: sentry
   annotations:
+    kubernetes.io/ingress.class: traefik
     external-dns.alpha.kubernetes.io/hostname: sentry.nwlnexus.net
     external-dns.alpha.kubernetes.io/target: ing.mgmt.nwlnexus.net
 spec:
