@@ -1,0 +1,66 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: portainer
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: portainer-sa-clusteradmin
+  namespace: portainer
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: portainer-crb-clusteradmin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: portainer-sa-clusteradmin
+    namespace: portainer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portainer-agent
+  namespace: portainer
+spec:
+  selector:
+    matchLabels:
+      app: portainer-agent
+  template:
+    metadata:
+      labels:
+        app: portainer-agent
+    spec:
+      serviceAccountName: portainer-sa-clusteradmin
+      containers:
+        - name: portainer-agent
+          image: portainer/agent:2.19.4
+          imagePullPolicy: Always
+          env:
+            - name: LOG_LEVEL
+              value: INFO
+            - name: KUBERNETES_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: EDGE
+              value: "1"
+            - name: EDGE_ID
+              value: "3"
+            - name: EDGE_KEY
+              value: "aHR0cHM6Ly9kb2NrLm53bG5leHVzLm5ldHxkb2NrLm53bG5leHVzLm5ldDo4MDAwfEN4SFJkdWVPUkRGa3diekFYSWJyM0FLK1hMTWRNbnpGWVpubXB0N0I3Ums9fDM"
+            - name: EDGE_INSECURE_POLL
+              value: "1"
+            - name: AGENT_CLUSTER_ADDR
+              value: portainer-agent.portainer.svc.cluster.local
+          ports:
+            - containerPort: 9001
+              protocol: TCP
+      nodeSelector:
+        kubernetes.io/os: linux
