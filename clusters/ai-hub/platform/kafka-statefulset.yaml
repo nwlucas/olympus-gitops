@@ -14,6 +14,10 @@ spec:
       labels:
         app: kafka
     spec:
+      volumes:
+        - name: kafka-storage
+          persistentVolumeClaim:
+            claimName: kafka-data
       containers:
         - name: kafka
           image: apache/kafka:latest
@@ -58,11 +62,6 @@ spec:
               cpu: 250m
             limits:
               memory: 4Gi
-  volumeClaimTemplates: []
-  volumes:
-    - name: kafka-storage
-      persistentVolumeClaim:
-        claimName: kafka-data
 ---
 apiVersion: v1
 kind: Service

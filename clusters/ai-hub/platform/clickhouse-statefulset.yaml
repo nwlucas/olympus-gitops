@@ -14,6 +14,10 @@ spec:
       labels:
         app: clickhouse
     spec:
+      volumes:
+        - name: clickhouse-storage
+          persistentVolumeClaim:
+            claimName: clickhouse-data
       containers:
         - name: clickhouse
           image: clickhouse/clickhouse-server:latest
@@ -41,10 +45,6 @@ spec:
               cpu: 500m
             limits:
               memory: 8Gi
-  volumes:
-    - name: clickhouse-storage
-      persistentVolumeClaim:
-        claimName: clickhouse-data
 ---
 apiVersion: v1
 kind: Service
