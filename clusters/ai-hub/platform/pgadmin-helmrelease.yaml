@@ -30,7 +30,7 @@ spec:
     secretKeys:
       pgadminPasswordKey: password
     env:
-      email: admin@olympus.local
+      email: admin@nwlnexus.net
     serverDefinitions:
       enabled: true
       servers:
