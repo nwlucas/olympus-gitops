@@ -4,13 +4,13 @@ metadata:
   name: redisinsight
   namespace: platform
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: redis.nwlnexus.net
+    external-dns.alpha.kubernetes.io/hostname: redis.nwlnexus.io
     external-dns.alpha.kubernetes.io/target: ing.ai-hub.nwlnexus.net
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`redis.nwlnexus.net`)
+    - match: Host(`redis.nwlnexus.io`)
       kind: Rule
       services:
         - name: redisinsight

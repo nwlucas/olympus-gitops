@@ -4,13 +4,13 @@ metadata:
   name: postgrest
   namespace: platform
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: pgrest.nwlnexus.net
+    external-dns.alpha.kubernetes.io/hostname: pg.nwlnexus.io
     external-dns.alpha.kubernetes.io/target: ing.ai-hub.nwlnexus.net
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`pgrest.nwlnexus.net`)
+    - match: Host(`pg.nwlnexus.io`)
       kind: Rule
       services:
         - name: postgrest

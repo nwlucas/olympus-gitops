@@ -4,13 +4,13 @@ metadata:
   name: pgadmin
   namespace: platform
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: pgadmin.nwlnexus.net
+    external-dns.alpha.kubernetes.io/hostname: pgadmin.nwlnexus.io
     external-dns.alpha.kubernetes.io/target: ing.ai-hub.nwlnexus.net
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`pgadmin.nwlnexus.net`)
+    - match: Host(`pgadmin.nwlnexus.io`)
       kind: Rule
       services:
         - name: pgadmin-pgadmin4

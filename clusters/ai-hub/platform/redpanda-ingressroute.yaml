@@ -4,13 +4,13 @@ metadata:
   name: redpanda-console
   namespace: platform
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: kafka.nwlnexus.net
+    external-dns.alpha.kubernetes.io/hostname: kafka.nwlnexus.io
     external-dns.alpha.kubernetes.io/target: ing.ai-hub.nwlnexus.net
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`kafka.nwlnexus.net`)
+    - match: Host(`kafka.nwlnexus.io`)
       kind: Rule
       services:
         - name: redpanda-console-console
