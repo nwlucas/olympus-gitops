@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - flux-kustomizations/external-secrets.yaml
+  - flux-kustomizations/cert-manager.yaml
+  - flux-kustomizations/external-dns.yaml
+  - flux-kustomizations/cloudflared.yaml
+  - flux-kustomizations/traefik-config.yaml
+  - flux-kustomizations/tailscale-operator.yaml
+  - flux-kustomizations/qnap-storage.yaml
+  - flux-kustomizations/portainer.yaml
+  - flux-kustomizations/portainer-agent.yaml
+  - flux-kustomizations/platform.yaml
+  - flux-kustomizations/sentry.yaml
