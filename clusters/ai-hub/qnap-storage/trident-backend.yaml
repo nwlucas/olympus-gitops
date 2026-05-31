@@ -7,7 +7,7 @@ spec:
   version: 1
   storageDriverName: ontap-san
   # managementLIF is the QNAP management IP — set directly (not from credentials secret)
-  managementLIF: 192.168.253.10
+  managementLIF: 192.168.253.10:8443
   credentials:
     name: qnap-trident-backend-creds
     type: secret
