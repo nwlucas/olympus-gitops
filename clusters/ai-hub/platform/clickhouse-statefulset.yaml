@@ -23,7 +23,7 @@ spec:
             name: clickhouse-config
       containers:
         - name: clickhouse
-          image: clickhouse/clickhouse-server:24.8
+          image: clickhouse/clickhouse-server:24.12
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8123
