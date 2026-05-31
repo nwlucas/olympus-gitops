@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: sentry
+  namespace: sentry
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: sentry.nwlnexus.net
+    external-dns.alpha.kubernetes.io/target: ing.ai-hub.nwlnexus.net
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`sentry.nwlnexus.net`)
+      kind: Rule
+      services:
+        - name: sentry-web
+          port: 9000
+  tls:
+    secretName: sentry-tls

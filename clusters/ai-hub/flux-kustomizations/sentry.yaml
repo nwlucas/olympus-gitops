@@ -12,3 +12,5 @@ spec:
     name: flux-system
   dependsOn:
     - name: platform
+    - name: cert-manager
+    - name: traefik-config
