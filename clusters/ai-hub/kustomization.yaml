@@ -8,6 +8,7 @@ resources:
   - flux-kustomizations/external-dns.yaml
   - flux-kustomizations/cloudflared.yaml
   - flux-kustomizations/traefik-config.yaml
+  - flux-kustomizations/traefik-config-ingress.yaml
   - flux-kustomizations/tailscale-operator.yaml
   - flux-kustomizations/qnap-storage.yaml
   - flux-kustomizations/portainer.yaml
