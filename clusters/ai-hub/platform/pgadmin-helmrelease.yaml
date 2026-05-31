@@ -30,11 +30,7 @@ spec:
     secretKeys:
       pgadminPasswordKey: password
     env:
-      email:
-        valueFrom:
-          secretKeyRef:
-            name: pgadmin-credentials
-            key: email
+      email: admin@olympus.local
     serverDefinitions:
       enabled: true
       servers:

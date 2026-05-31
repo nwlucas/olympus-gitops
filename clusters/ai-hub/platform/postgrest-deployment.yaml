@@ -17,8 +17,13 @@ spec:
         - name: postgrest
           image: postgrest/postgrest:v12.2.3
           env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: platform-credentials
+                  key: postgres-password
             - name: PGRST_DB_URI
-              value: "postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql.platform.svc.cluster.local:5432/postgres"
+              value: "postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql.platform.svc.cluster.local:5432/sentry"
             - name: PGRST_JWT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -28,11 +33,6 @@ spec:
               value: public
             - name: PGRST_DB_ANON_ROLE
               value: anon
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: platform-credentials
-                  key: postgres-password
           ports:
             - containerPort: 3000
           resources:
