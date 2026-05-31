@@ -22,7 +22,7 @@ spec:
         - name: fix-permissions
           image: busybox
           imagePullPolicy: IfNotPresent
-          command: ["sh", "-c", "chown -R 1000:1000 /var/kafka/data && chmod 755 /var/kafka/data"]
+          command: ["sh", "-c", "chown -R 1000:1000 /var/kafka/data && chmod 755 /var/kafka/data && rm -rf /var/kafka/data/lost+found"]
           volumeMounts:
             - name: kafka-storage
               mountPath: /var/kafka/data
