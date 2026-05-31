@@ -22,10 +22,13 @@ spec:
       retries: 3
     timeout: 15m
   values:
+    image:
+      tag: latest
     auth:
       existingSecret: platform-credentials
       secretKeys:
         adminPasswordKey: postgres-password
+      database: sentry
     primary:
       persistence:
         existingClaim: postgres-data

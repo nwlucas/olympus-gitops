@@ -18,6 +18,8 @@ spec:
       retries: 3
     timeout: 15m
   values:
+    image:
+      tag: latest
     auth:
       existingSecret: platform-credentials
       existingSecretPasswordKey: redis-password

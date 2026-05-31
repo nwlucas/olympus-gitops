@@ -19,11 +19,10 @@ resources:
   - redisinsight-deployment.yaml
   - redisinsight-ingressroute.yaml
   - kafka-pvc.yaml
-  - kafka-helmrelease.yaml
+  - kafka-statefulset.yaml
   - redpanda-helmrepository.yaml
   - redpanda-helmrelease.yaml
   - redpanda-ingressroute.yaml
   - clickhouse-pvc.yaml
-  - clickhouse-helmrepository.yaml
-  - clickhouse-helmrelease.yaml
+  - clickhouse-statefulset.yaml
   - clickhouse-ingressroute.yaml
