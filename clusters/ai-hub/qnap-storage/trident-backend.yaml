@@ -5,15 +5,14 @@ metadata:
   namespace: trident
 spec:
   version: 1
-  storageDriverName: ontap-san
-  # managementLIF is the QNAP management IP — set directly (not from credentials secret)
-  managementLIF: 192.168.253.10
+  storageDriverName: qnap-nas
+  backendName: qnap-iscsi-backend
+  userCHAP: true
   credentials:
     name: qnap-trident-backend-creds
-    type: secret
-  chapInitiatorSecret: qnap-trident-backend-creds
+  debugTraceFlags:
+    method: true
   storage:
-    - labels:
+    - serviceLevel: "Storage Pool 1"
+      labels:
         location: ai-hub
-      defaults:
-        spaceReserve: none
