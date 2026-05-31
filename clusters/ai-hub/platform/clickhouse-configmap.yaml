@@ -10,7 +10,6 @@ data:
         <default>
           <allow_experimental_json_type>1</allow_experimental_json_type>
           <allow_experimental_dynamic_type>1</allow_experimental_dynamic_type>
-          <allow_experimental_workload_classification>1</allow_experimental_workload_classification>
         </default>
       </profiles>
     </clickhouse>
