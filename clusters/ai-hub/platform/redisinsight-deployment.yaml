@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: redisinsight
-          image: redis/redisinsight:latest
+          image: redis/redisinsight:2.56
           ports:
             - containerPort: 5540
           resources:

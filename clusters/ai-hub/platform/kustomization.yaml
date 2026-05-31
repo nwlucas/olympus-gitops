@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - externalsecret.yaml
+  - pgadmin-externalsecret.yaml
   - bitnami-helmrepository.yaml
   - postgres-pvc.yaml
   - postgres-helmrelease.yaml

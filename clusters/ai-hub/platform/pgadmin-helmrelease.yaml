@@ -13,14 +13,20 @@ spec:
         name: runix
         namespace: platform
   values:
-    env:
-      email: nwilliams-lucas@nwlnexus.net
-      password: admin
     ingress:
       enabled: false
     persistentVolume:
       enabled: true
       existingClaim: pgadmin-data
+    existingSecret: pgadmin-credentials
+    secretKeys:
+      pgadminPasswordKey: password
+    env:
+      email:
+        valueFrom:
+          secretKeyRef:
+            name: pgadmin-credentials
+            key: email
     serverDefinitions:
       enabled: true
       servers:

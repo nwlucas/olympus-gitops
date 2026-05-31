@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: postgrest
-          image: postgrest/postgrest:latest
+          image: postgrest/postgrest:v12.2.3
           env:
             - name: PGRST_DB_URI
               value: "postgresql://postgres:$(POSTGRES_PASSWORD)@postgresql.platform.svc.cluster.local:5432/postgres"
