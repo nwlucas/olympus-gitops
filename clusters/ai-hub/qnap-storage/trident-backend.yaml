@@ -1,0 +1,17 @@
+apiVersion: trident.qnap.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: qnap-iscsi-backend
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-san
+  credentials:
+    name: qnap-trident-backend-creds
+    type: secret
+  chapInitiatorSecret: qnap-trident-backend-creds
+  storage:
+    - labels:
+        location: ai-hub
+      defaults:
+        spaceReserve: none
