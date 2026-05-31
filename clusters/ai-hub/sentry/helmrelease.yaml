@@ -63,6 +63,10 @@ spec:
     externalRedis:
       host: redis-master.platform.svc.cluster.local
       port: 6379
+      auth:
+        enabled: true
+        existingSecret: sentry-secrets
+        existingSecretKey: redis-password
     externalKafka:
       host: kafka.platform.svc.cluster.local
       port: 9092
