@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - externalsecret.yaml
+  - bitnami-helmrepository.yaml
+  - postgres-pvc.yaml
+  - postgres-helmrelease.yaml
+  - pgadmin-pvc.yaml
+  - pgadmin-helmrepository.yaml
+  - pgadmin-helmrelease.yaml
+  - pgadmin-certificate.yaml
+  - pgadmin-ingressroute.yaml
+  - postgrest-deployment.yaml
+  - postgrest-ingressroute.yaml
+  - redis-pvc.yaml
+  - redis-helmrelease.yaml
+  - redisinsight-deployment.yaml
+  - redisinsight-ingressroute.yaml
+  - kafka-pvc.yaml
+  - kafka-helmrelease.yaml
+  - redpanda-helmrepository.yaml
+  - redpanda-helmrelease.yaml
+  - redpanda-ingressroute.yaml
+  - clickhouse-pvc.yaml
+  - clickhouse-helmrepository.yaml
+  - clickhouse-helmrelease.yaml
+  - clickhouse-ingressroute.yaml

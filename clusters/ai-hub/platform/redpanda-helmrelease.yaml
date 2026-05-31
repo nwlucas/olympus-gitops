@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: redpanda-console
+  namespace: platform
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: console
+      sourceRef:
+        kind: HelmRepository
+        name: redpanda
+        namespace: platform
+  values:
+    console:
+      config:
+        kafka:
+          brokers:
+            - kafka.platform.svc.cluster.local:9092
+    ingress:
+      enabled: false
