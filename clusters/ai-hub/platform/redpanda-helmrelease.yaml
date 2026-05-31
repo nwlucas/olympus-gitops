@@ -13,10 +13,9 @@ spec:
         name: redpanda
         namespace: platform
   values:
-    console:
-      config:
-        kafka:
-          brokers:
-            - kafka.platform.svc.cluster.local:9092
+    config:
+      kafka:
+        brokers:
+          - kafka.platform.svc.cluster.local:9092
     ingress:
       enabled: false

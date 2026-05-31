@@ -41,11 +41,11 @@ spec:
     - kind: Secret
       name: sentry-secrets
       valuesKey: admin-username
-      targetPath: user.create.email
+      targetPath: user.email
     - kind: Secret
       name: sentry-secrets
       valuesKey: admin-password
-      targetPath: user.create.password
+      targetPath: user.password
   values:
     postgresql:
       enabled: false
@@ -83,6 +83,7 @@ spec:
     user:
       create: true
       superuser: true
+      # email and password injected via valuesFrom (user.email, user.password)
     sentry:
       web:
         env:
