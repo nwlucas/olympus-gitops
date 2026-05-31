@@ -13,7 +13,7 @@ spec:
     - match: Host(`kafka.nwlnexus.net`)
       kind: Rule
       services:
-        - name: redpanda-console
+        - name: redpanda-console-console
           port: 8080
   tls:
     certResolver: default
