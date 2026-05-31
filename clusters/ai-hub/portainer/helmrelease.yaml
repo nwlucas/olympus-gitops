@@ -5,6 +5,10 @@ metadata:
   namespace: portainer
 spec:
   interval: 1h
+  install:
+    timeout: 15m
+    remediation:
+      retries: 3
   chart:
     spec:
       chart: portainer
@@ -13,9 +17,6 @@ spec:
         kind: HelmRepository
         name: portainer
         namespace: portainer
-  install:
-    remediation:
-      retries: 3
   values:
     service:
       type: ClusterIP

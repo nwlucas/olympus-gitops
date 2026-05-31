@@ -5,4 +5,4 @@ metadata:
   namespace: platform
 spec:
   interval: 1h
-  url: https://charts.clickhouse.com
+  url: https://helm.clickhouse.com/

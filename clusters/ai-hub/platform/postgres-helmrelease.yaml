@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: postgresql
-      version: ">=16.0.0 <17.0.0"
+      version: "16.7.27"
       sourceRef:
         kind: HelmRepository
         name: bitnami
@@ -16,9 +16,11 @@ spec:
   install:
     remediation:
       retries: 3
+    timeout: 15m
   upgrade:
     remediation:
       retries: 3
+    timeout: 15m
   values:
     auth:
       existingSecret: platform-credentials

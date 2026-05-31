@@ -5,6 +5,10 @@ metadata:
   namespace: portainer
 spec:
   interval: 1h
+  install:
+    timeout: 10m
+    remediation:
+      retries: 3
   chart:
     spec:
       chart: portainer-agent
