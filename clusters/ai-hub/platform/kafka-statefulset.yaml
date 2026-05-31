@@ -18,6 +18,16 @@ spec:
         - name: kafka-storage
           persistentVolumeClaim:
             claimName: kafka-data
+      initContainers:
+        - name: fix-permissions
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          command: ["sh", "-c", "chown -R 1000:1000 /var/kafka/data && chmod 755 /var/kafka/data"]
+          volumeMounts:
+            - name: kafka-storage
+              mountPath: /var/kafka/data
+          securityContext:
+            runAsUser: 0
       containers:
         - name: kafka
           image: apache/kafka:latest
