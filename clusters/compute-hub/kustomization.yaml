@@ -12,3 +12,4 @@ resources:
   - flux-kustomizations/nfs-provisioner.yaml
   - flux-kustomizations/whoami.yaml
   - flux-kustomizations/tailscale-operator.yaml
+  - flux-kustomizations/portainer-agent.yaml

@@ -1,0 +1,36 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: portainer
+  namespace: portainer
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: portainer
+      version: "1.0.57"
+      sourceRef:
+        kind: HelmRepository
+        name: portainer
+        namespace: portainer
+  install:
+    remediation:
+      retries: 3
+  values:
+    service:
+      type: ClusterIP
+    ingress:
+      enabled: false
+    persistence:
+      existingClaim: portainer-data
+    env:
+      ADMIN_USERNAME:
+        valueFrom:
+          secretKeyRef:
+            name: portainer-admin
+            key: username
+      ADMIN_PASSWORD:
+        valueFrom:
+          secretKeyRef:
+            name: portainer-admin
+            key: password
