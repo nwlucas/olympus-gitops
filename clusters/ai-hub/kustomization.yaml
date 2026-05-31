@@ -12,6 +12,5 @@ resources:
   - flux-kustomizations/tailscale-operator.yaml
   - flux-kustomizations/qnap-storage.yaml
   - flux-kustomizations/portainer.yaml
-  - flux-kustomizations/portainer-agent.yaml
   - flux-kustomizations/platform.yaml
   - flux-kustomizations/sentry.yaml

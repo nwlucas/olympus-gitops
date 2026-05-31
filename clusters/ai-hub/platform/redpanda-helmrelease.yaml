@@ -21,5 +21,7 @@ spec:
       kafka:
         brokers:
           - kafka.platform.svc.cluster.local:9092
+        startup:
+          maxRetries: -1
     ingress:
       enabled: false

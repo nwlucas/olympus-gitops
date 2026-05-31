@@ -12,7 +12,7 @@ spec:
   chart:
     spec:
       chart: portainer
-      version: "1.0.57"
+      version: "239.2.0"
       sourceRef:
         kind: HelmRepository
         name: portainer
@@ -24,14 +24,5 @@ spec:
       enabled: false
     persistence:
       existingClaim: portainer-data
-    env:
-      ADMIN_USERNAME:
-        valueFrom:
-          secretKeyRef:
-            name: portainer-admin
-            key: username
-      ADMIN_PASSWORD:
-        valueFrom:
-          secretKeyRef:
-            name: portainer-admin
-            key: password
+    adminPassword:
+      existingSecret: portainer-admin
