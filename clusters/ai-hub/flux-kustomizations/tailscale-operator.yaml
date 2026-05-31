@@ -14,3 +14,4 @@ spec:
     name: flux-system
   dependsOn:
     - name: external-secrets
+    - name: external-secrets-config

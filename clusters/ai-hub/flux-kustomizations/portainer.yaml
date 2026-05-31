@@ -12,5 +12,6 @@ spec:
     name: flux-system
   dependsOn:
     - name: external-secrets
+    - name: external-secrets-config
     - name: cert-manager
     - name: qnap-storage
