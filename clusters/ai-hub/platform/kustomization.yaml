@@ -24,5 +24,6 @@ resources:
   - redpanda-helmrelease.yaml
   - redpanda-ingressroute.yaml
   - clickhouse-pvc.yaml
+  - clickhouse-configmap.yaml
   - clickhouse-statefulset.yaml
   - clickhouse-ingressroute.yaml

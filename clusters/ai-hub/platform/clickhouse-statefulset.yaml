@@ -18,6 +18,9 @@ spec:
         - name: clickhouse-storage
           persistentVolumeClaim:
             claimName: clickhouse-data
+        - name: clickhouse-config
+          configMap:
+            name: clickhouse-config
       containers:
         - name: clickhouse
           image: clickhouse/clickhouse-server:24.8
@@ -40,6 +43,9 @@ spec:
           volumeMounts:
             - name: clickhouse-storage
               mountPath: /var/lib/clickhouse
+            - name: clickhouse-config
+              mountPath: /etc/clickhouse-server/users.d/experimental_json.xml
+              subPath: experimental_json.xml
           resources:
             requests:
               memory: 2Gi
