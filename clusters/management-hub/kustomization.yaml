@@ -15,4 +15,3 @@ resources:
   - flux-kustomizations/tailscale-operator.yaml
   - flux-kustomizations/tailscale-dns.yaml
   - flux-kustomizations/plex.yaml
-  - flux-kustomizations/portainer-agent.yaml
