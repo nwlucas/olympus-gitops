@@ -15,3 +15,4 @@ resources:
   - flux-kustomizations/tailscale-dns.yaml
   - flux-kustomizations/qnap-storage.yaml
   - flux-kustomizations/portainer-agent.yaml
+  - flux-kustomizations/otel-collector.yaml
