@@ -14,5 +14,7 @@ spec:
     - name: external-secrets
     - name: cert-manager
     - name: qnap-storage
-    - name: traefik-config
-    - name: traefik-config-ingress
+  # NOT depending on traefik-config / traefik-config-ingress: both are suspended
+  # for the staged OTLP rollout and would permanently block platform. Platform
+  # services bring their own IngressRoutes; Traefik routing works regardless of
+  # whether traefik-config (HelmChartConfig tuning) has reconciled.
