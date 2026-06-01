@@ -30,9 +30,17 @@ spec:
   values:
     operatorConfig:
       hostname: ai-hub-operator
-    # NOTE: the operator's API-server proxy (apiServerProxyConfig.mode) is
-    # intentionally left disabled. Both "auth" and "noauth" modes serve the
-    # k8s API over HTTPS on the operator's MagicDNS name and require a
-    # Tailscale-issued TLS cert (tailnet HTTPS Certificates), which we are
-    # avoiding. ai-hub's API is instead reached over the tailnet via a TCP
-    # passthrough proxy using k3s's own client-cert auth + RBAC.
+    # Expose the k3s API server over the tailnet via the operator's in-process
+    # API server proxy (https://ai-hub-operator.<tailnet>.ts.net). Required for
+    # ai-hub because its k3s API lives inside the Colima VM and can't be
+    # published on the Mac host's tailnet IP like the bare-metal nodes are.
+    #
+    # AUTH mode (mode: "true"): the proxy authenticates the caller's Tailscale
+    # identity and impersonates k8s groups/users per tailnet ACL grants, so
+    # real RBAC applies (no "reachability == cluster-admin"). allowImpersonation
+    # creates the ClusterRole the proxy needs to impersonate. Requires a tailnet
+    # ACL grant (app: tailscale.com/cap/kubernetes) mapping identities to k8s
+    # groups, and HTTPS Certificates enabled on the tailnet (done).
+    apiServerProxyConfig:
+      mode: "true"
+      allowImpersonation: "true"
