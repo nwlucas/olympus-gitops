@@ -104,3 +104,16 @@ spec:
         CSRF_TRUSTED_ORIGINS = ["https://sentry.nwlnexus.net"]
         SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
         USE_X_FORWARDED_HOST = True
+
+        # Non-browser clients (Sentry SDKs, OTel collector) POST to /api/<id>/envelope/
+        # without Origin/Referer/CSRF-token. Django CSRF rejects them, but these
+        # endpoints have their own auth (X-Sentry-Auth / Bearer / DSN public key).
+        # Monkey-patch CsrfViewMiddleware to skip /api/* — the safest place to inject
+        # since sentryConfPy can't reorder Sentry's MIDDLEWARE tuple cleanly.
+        from django.middleware.csrf import CsrfViewMiddleware as _CsrfMW
+        _orig_csrf_process_view = _CsrfMW.process_view
+        def _csrf_skip_api(self, request, callback, cb_args, cb_kwargs):
+            if request.path.startswith("/api/"):
+                return None
+            return _orig_csrf_process_view(self, request, callback, cb_args, cb_kwargs)
+        _CsrfMW.process_view = _csrf_skip_api
