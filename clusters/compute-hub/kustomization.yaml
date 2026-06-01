@@ -13,4 +13,5 @@ resources:
   - flux-kustomizations/whoami.yaml
   - flux-kustomizations/tailscale-operator.yaml
   - flux-kustomizations/tailscale-dns.yaml
+  - flux-kustomizations/qnap-storage.yaml
   - flux-kustomizations/portainer-agent.yaml

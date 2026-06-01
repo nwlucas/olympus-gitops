@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: qnap-iscsi
+  # NOT default: management-hub already has local-path as the default class.
+  # Workloads must request storageClassName: qnap-iscsi explicitly.
+provisioner: csi.trident.qnap.io
+parameters:
+  selector: "location=management-hub"
+allowVolumeExpansion: true
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
