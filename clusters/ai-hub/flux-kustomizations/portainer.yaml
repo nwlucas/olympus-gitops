@@ -15,7 +15,9 @@ spec:
     - name: external-secrets-config
     - name: cert-manager
     - name: cert-manager-config
-    - name: traefik-config
     - name: tailscale-operator
     - name: external-dns
     - name: qnap-storage
+  # NOT depending on traefik-config: that kustomization is suspended for the
+  # staged OTLP rollout and would permanently block portainer. Portainer's
+  # IngressRoute ships with its own manifests.

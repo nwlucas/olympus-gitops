@@ -13,4 +13,7 @@ spec:
   dependsOn:
     - name: platform
     - name: cert-manager
-    - name: traefik-config
+  # NOT depending on traefik-config: that kustomization is suspended for the
+  # staged OTLP rollout, which would permanently block this one. Sentry's
+  # IngressRoute ships with the sentry HelmRelease itself; Traefik runtime
+  # routing doesn't require traefik-config to be Ready.
