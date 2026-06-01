@@ -8,5 +8,4 @@ resources:
   - pvc.yaml
   - certificate.yaml
   - ingressroute.yaml
-  - ingressroutetcp.yaml
-  - tailscale-edge-svc.yaml
+  - egress-agents.yaml

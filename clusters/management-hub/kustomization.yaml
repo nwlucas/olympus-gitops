@@ -14,4 +14,5 @@ resources:
   - flux-kustomizations/kubeconfig-merger.yaml
   - flux-kustomizations/tailscale-operator.yaml
   - flux-kustomizations/tailscale-dns.yaml
+  - flux-kustomizations/portainer-agent.yaml
   - flux-kustomizations/plex.yaml
