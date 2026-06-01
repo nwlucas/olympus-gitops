@@ -86,12 +86,21 @@ spec:
       create: true
       superuser: true
       # email and password injected via valuesFrom (user.email, user.password)
-    sentry:
-      web:
-        env:
-          - name: SENTRY_URL_PREFIX
-            value: https://sentry.nwlnexus.net
-          - name: CSRF_TRUSTED_ORIGINS
-            value: "https://sentry.nwlnexus.net"
-          - name: SECURE_PROXY_SSL_HEADER
-            value: "HTTP_X_FORWARDED_PROTO,https"
+    # Canonical external URL — sets system.url-prefix in config.yml. Required so
+    # Sentry knows it is served at https://sentry.nwlnexus.net behind the
+    # Cloudflare → Traefik proxy chain (TLS terminated upstream).
+    system:
+      url: "https://sentry.nwlnexus.net"
+    # Django settings appended verbatim to sentry.conf.py.
+    #
+    # NOTE: a previous attempt set these as sentry.web.env vars. That does NOT
+    # work — Sentry's settings file does not read CSRF_TRUSTED_ORIGINS /
+    # SECURE_PROXY_SSL_HEADER from the environment, so the CSRF check kept
+    # failing ("Origin checking failed — https://sentry.nwlnexus.net does not
+    # match any trusted origins"). They must be real Python settings, which is
+    # what config.sentryConfPy injects.
+    config:
+      sentryConfPy: |
+        CSRF_TRUSTED_ORIGINS = ["https://sentry.nwlnexus.net"]
+        SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+        USE_X_FORWARDED_HOST = True
