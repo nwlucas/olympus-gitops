@@ -10,6 +10,16 @@ spec:
   entryPoints:
     - websecure
   routes:
+    # Higher-priority route: SPA entrypoints must never be cached by Cloudflare
+    # (unversioned path, content changes every upgrade — see middleware.yaml).
+    - match: Host(`sentry.nwlnexus.net`) && PathPrefix(`/_static/dist/sentry/entrypoints/`)
+      kind: Rule
+      priority: 100
+      middlewares:
+        - name: sentry-entrypoints-nocache
+      services:
+        - name: sentry-web
+          port: 9000
     - match: Host(`sentry.nwlnexus.net`)
       kind: Rule
       services:
