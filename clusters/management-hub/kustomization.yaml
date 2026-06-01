@@ -10,7 +10,6 @@ resources:
   - flux-kustomizations/connect-ingress.yaml
   - flux-kustomizations/whoami.yaml
   - flux-kustomizations/qnap-ui.yaml
-  - flux-kustomizations/headlamp.yaml
   - flux-kustomizations/kubeconfig-merger.yaml
   - flux-kustomizations/tailscale-operator.yaml
   - flux-kustomizations/tailscale-dns.yaml

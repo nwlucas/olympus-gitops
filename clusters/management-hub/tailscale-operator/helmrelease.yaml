@@ -30,3 +30,11 @@ spec:
   values:
     operatorConfig:
       hostname: management-hub-operator
+    # Identity-enforced kubectl/k9s access over the tailnet. The operator's
+    # API server proxy (https://management-hub-operator.<tailnet>.ts.net)
+    # authenticates the caller's Tailscale identity and impersonates k8s groups
+    # per the tailnet ACL grant (app: tailscale.com/cap/kubernetes, dst
+    # tag:k8s-operator). Replaces shared admin client-cert kubeconfigs.
+    apiServerProxyConfig:
+      mode: "true"
+      allowImpersonation: "true"
