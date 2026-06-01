@@ -23,12 +23,6 @@ subjects:
     name: portainer-sa-clusteradmin
     namespace: portainer
 ---
-# Secret must be created out-of-band (not committed to git):
-# kubectl create secret generic portainer-edge-key -n portainer \
-#   --from-literal=edge-key=<EDGE_KEY>
-#
-# EDGE_KEY for compute-hub (Env ID 3) using Tailnet tunnel 100.111.175.126:8000:
-# aHR0cHM6Ly9kb2NrLm53bG5leHVzLm5ldHwxMDAuMTExLjE3NS4xMjY6ODAwMHxDeEhSZHVlT1JERmt3YnpBWElicjNBSytYTE1kTW56Rllabm1wdDdCN1JrPXwz
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -87,3 +81,16 @@ spec:
     - port: 9001
       targetPort: 9001
       protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: portainer-agent-deny-inbound
+  namespace: portainer
+spec:
+  podSelector:
+    matchLabels:
+      app: portainer-agent
+  policyTypes:
+    - Ingress
+  ingress: []
