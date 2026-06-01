@@ -32,6 +32,11 @@ spec:
       websecure:
         tls:
           enabled: true
+      portainer-edge:
+        port: 8000
+        expose:
+          default: true
+        protocol: TCP
     api:
       dashboard: true
     logs:
