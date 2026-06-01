@@ -17,4 +17,3 @@ spec:
   dependsOn:
     - name: cert-manager-config
     - name: external-dns
-    - name: otel-collector

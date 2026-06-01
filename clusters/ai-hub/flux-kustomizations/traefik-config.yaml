@@ -16,4 +16,3 @@ spec:
   dependsOn:
     - name: cert-manager
     - name: cert-manager-config
-    - name: otel-collector
