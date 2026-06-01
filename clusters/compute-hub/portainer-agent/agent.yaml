@@ -43,7 +43,7 @@ metadata:
   annotations:
     tailscale.com/expose: "true"
     tailscale.com/hostname: compute-hub-agent
-    tailscale.com/tags: tag:k8s
+    tailscale.com/tags: tag:portainer-agent
 spec:
   type: LoadBalancer
   selector:

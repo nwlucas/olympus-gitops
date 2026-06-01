@@ -11,6 +11,7 @@ metadata:
   namespace: portainer
   annotations:
     tailscale.com/tailnet-fqdn: management-hub-agent.raptor-mimosa.ts.net
+    tailscale.com/tags: tag:portainer-server
 spec:
   type: ExternalName
   externalName: placeholder.invalid
@@ -26,6 +27,7 @@ metadata:
   namespace: portainer
   annotations:
     tailscale.com/tailnet-fqdn: compute-hub-agent.raptor-mimosa.ts.net
+    tailscale.com/tags: tag:portainer-server
 spec:
   type: ExternalName
   externalName: placeholder.invalid
