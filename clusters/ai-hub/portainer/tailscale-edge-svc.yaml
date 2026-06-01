@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: portainer-edge-ts
+  namespace: portainer
+  annotations:
+    tailscale.com/expose: "true"
+    tailscale.com/hostname: portainer-edge
+    tailscale.com/tags: tag:k8s
+spec:
+  selector:
+    app.kubernetes.io/name: portainer
+    app.kubernetes.io/instance: portainer
+  ports:
+    - name: edge
+      port: 8000
+      targetPort: 8000
+      protocol: TCP
+  type: LoadBalancer

@@ -8,3 +8,4 @@ resources:
   - pvc.yaml
   - certificate.yaml
   - ingressroute.yaml
+  - tailscale-edge-svc.yaml

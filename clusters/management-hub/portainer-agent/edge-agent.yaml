@@ -23,6 +23,12 @@ subjects:
     name: portainer-sa-clusteradmin
     namespace: portainer
 ---
+# Secret must be created out-of-band (not committed to git):
+# kubectl create secret generic portainer-edge-key -n portainer \
+#   --from-literal=edge-key=<EDGE_KEY>
+#
+# EDGE_KEY for management-hub (Env ID 4) using Tailnet tunnel 100.111.175.126:8000:
+# aHR0cHM6Ly9kb2NrLm53bG5leHVzLm5ldHwxMDAuMTExLjE3NS4xMjY6ODAwMHxDeEhSZHVlT1JERmt3YnpBWElicjNBSytYTE1kTW56Rllabm1wdDdCN1JrPXw0
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -52,9 +58,12 @@ spec:
             - name: EDGE
               value: "1"
             - name: EDGE_ID
-              value: "2"
+              value: "4"
             - name: EDGE_KEY
-              value: "aHR0cHM6Ly9kb2NrLm53bG5leHVzLm5ldHxkb2NrLm53bG5leHVzLm5ldDo4MDAwfEN4SFJkdWVPUkRGa3diekFYSWJyM0FLK1hMTWRNbnpGWVpubXB0N0I3Ums9fDI"
+              valueFrom:
+                secretKeyRef:
+                  name: portainer-edge-key
+                  key: edge-key
             - name: EDGE_INSECURE_POLL
               value: "1"
             - name: AGENT_CLUSTER_ADDR
@@ -64,3 +73,17 @@ spec:
               protocol: TCP
       nodeSelector:
         kubernetes.io/os: linux
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portainer-agent
+  namespace: portainer
+spec:
+  clusterIP: None
+  selector:
+    app: portainer-agent
+  ports:
+    - port: 9001
+      targetPort: 9001
+      protocol: TCP
