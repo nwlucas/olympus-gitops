@@ -30,3 +30,12 @@ spec:
   values:
     operatorConfig:
       hostname: ai-hub-operator
+    # Expose the k3s API server over the tailnet via the operator's in-process
+    # API server proxy (reachable at https://ai-hub-operator.<tailnet>.ts.net).
+    # This is the access path for ai-hub because its k3s API lives inside the
+    # Colima VM and cannot be published on the Mac host's tailnet IP like the
+    # bare-metal nodes are. "noauth" forwards requests as the operator's
+    # ServiceAccount; access is gated by tailnet ACL reachability to the
+    # ai-hub-operator device (tighten alongside ACL hardening — olympus-sdk#56).
+    apiServerProxyConfig:
+      mode: "noauth"
