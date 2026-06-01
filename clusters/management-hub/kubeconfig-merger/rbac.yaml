@@ -32,25 +32,25 @@ subjects:
     name: kubeconfig-merger
     namespace: external-secrets
 ---
-# Role + RoleBinding granting the merger write access to Secrets in the headlamp
-# namespace (where it manages headlamp-combined-kubeconfig).
-# A RoleBinding in namespace A can reference a ServiceAccount from namespace B.
+# Role + RoleBinding granting the merger write access to the combined-kubeconfig
+# Secret in its own namespace (headlamp namespace was removed when Headlamp was
+# retired; the k8s Secret copy now lives alongside the merger).
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: kubeconfig-merger-writer
-  namespace: headlamp
+  namespace: external-secrets
 rules:
   - apiGroups: [""]
     resources: ["secrets"]
-    resourceNames: ["headlamp-combined-kubeconfig"]
+    resourceNames: ["combined-kubeconfig"]
     verbs: ["get", "create", "update"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: kubeconfig-merger-writer
-  namespace: headlamp
+  namespace: external-secrets
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role

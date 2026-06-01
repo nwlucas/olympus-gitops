@@ -10,8 +10,9 @@ data:
     management-hub-kubeconfig
     compute-hub-kubeconfig
     ai-hub-kubeconfig
-  # Name of the merged document written back to 1Password
-  combined-item-name: headlamp-combined-kubeconfig
+  # Name of the merged item written back to 1Password (devs download this).
+  # Renamed from headlamp-combined-kubeconfig now that Headlamp is retired.
+  combined-item-name: olympus-combined-kubeconfig
   # Which cluster is the default context in Headlamp (must match a context name
   # in one of the individual kubeconfigs above)
   current-context: management-hub
