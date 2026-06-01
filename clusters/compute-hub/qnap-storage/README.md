@@ -57,6 +57,20 @@ installed out-of-band by ansible. If the CRDs are not present yet the
 Kustomization fails with `no matches for kind "TridentBackendConfig"`; it will
 self-heal on the next reconcile once the plugin is installed.
 
+## Security note: QNAP mgmt API over HTTP (https:"false", port 8080)
+
+The `qnap-trident-backend-creds` Secret sets `https: "false"` / `port: 8080`,
+so the QNAP admin credentials traverse the LAN in cleartext between the k3s
+nodes and the NAS. This is a deliberate carry-over from the proven ai-hub
+config: the QNAP CSI/Trident TLS path hardcodes port 443 and had cert-trust
+issues during ai-hub bring-up, so we use the HTTP mgmt API. Traffic is
+confined to the storage L2 LAN (not routed, not over Tailscale/WAN).
+
+This is a known platform-wide tradeoff, not unique to these clusters. Revisit
+when moving the QNAP mgmt API to validated HTTPS (set `https: "true"`,
+`port: 443`, and configure Trident cert trust) — track alongside the ai-hub
+backend, since all three clusters share this pattern.
+
 ## Lessons carried over from ai-hub
 
 - Driver `qnap-iscsi` (the `qnap-nas` driver SIGSEGVs on ARM64; on amd64 it
