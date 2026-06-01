@@ -26,5 +26,3 @@ spec:
       existingClaim: portainer-data
     adminPassword:
       existingSecret: portainer-admin
-    args:
-      - "--tunnel-addr=100.111.175.126:8000"
