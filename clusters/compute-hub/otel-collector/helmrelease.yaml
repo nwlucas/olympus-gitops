@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: opentelemetry-collector
-      version: ">=0.110.0 <1.0.0"
+      version: "0.158.0"
       sourceRef:
         kind: HelmRepository
         name: open-telemetry
@@ -75,6 +75,9 @@ spec:
           send_batch_size: 512
         resource:
           attributes:
+            - key: service.name
+              value: traefik-edge
+              action: upsert
             - key: cluster
               value: compute-hub
               action: upsert
@@ -83,8 +86,9 @@ spec:
               action: upsert
       exporters:
         sentry:
-          dsn: ${env:SENTRY_DSN}
-          environment: homelab
+          url: https://sentry.nwlnexus.net
+          org_slug: nwlnexus
+          auth_token: ${env:SENTRY_AUTH_TOKEN}
       service:
         telemetry:
           metrics:
